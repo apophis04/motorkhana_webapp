@@ -1,0 +1,78 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Edit Runs</h2>
+        <form method="post" action="/editruns">
+            <div class="form-group">
+                <label for="driver_id">Select Driver:</label>
+                <select class="form-control" id="driver_id" name="driver_id">
+                    <option value="">-- Select Driver --</option>
+                    {% for driver in drivers %}
+                    <option value="{{ driver.driver_id }}">{{ driver.first_name }} {{ driver.surname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="course_id">Select Course:</label>
+                <select class="form-control" id="course_id" name="course_id">
+                    <option value="">-- Select Course --</option>
+                    {% for course in courses %}
+                    <option value="{{ course.course_id }}">{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Select</button>
+        </form>
+
+        {% if runs %}
+        <form method="post" action="/editruns/update">
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>Run Number</th>
+                        <th>Run Time</th>
+                        <th>Cones</th>
+                        <th>WD</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for run in runs %}
+                    <tr>
+                        <td>{{ run.run_num }}</td>
+                        <td><input class="form-control" type="text" name="run_time_{{ run.run_num }}" value="{{ run.seconds }}"></td>
+                        <td><input class="form-control" type="text" name="cones_{{ run.run_num }}" value="{{ run.cones }}"></td>
+                        <td><input class="form-control" type="text" name="wd_{{ run.run_num }}" value="{{ run.wd }}"></td>
+                        <td><button class="btn btn-primary" type="submit" name="editedruns" value="{{ run.run_num }}">Update Run</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Update Selected Runs</button>
+        </form>
+        {% endif %}
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li class="alert alert-info">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

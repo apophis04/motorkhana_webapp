@@ -1,0 +1,37 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Run Records</title>
+</head>
+<body>
+    <h1 class="my-4">Run Records</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Driver ID</th>
+                    <th>Course ID</th>
+                    <th>Run Number</th>
+                    <th>Seconds</th>
+                    <th>Cones</th>
+                    <th>Wet/Dry</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for run in runs %}
+                <tr>
+                    <td>{{ run.dr_id }}</td>
+                    <td>{{ run.crs_id }}</td>
+                    <td>{{ run.run_num }}</td>
+                    <td>{{ run.seconds }}</td>
+                    <td>{{ run.cones or 'N/A' }}</td>
+                    <td>{{ 'Wet' if run.wd == 1 else 'Dry' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+
+<body>
+    <div class="container mt-5">
+        <h2>Add Driver</h2>
+        <form method="POST" action="/adddriver">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" class="form-control" name="first_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="surname">Surname:</label>
+                <input type="text" class="form-control" name="surname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="car">Car:</label>
+                <select class="form-control" name="car">
+                    {% for car in car_options %}
+                    <option value="{{ car[0] }}">{{ car[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="is_junior" id="is_junior" value="1">
+                <label class="form-check-label" for="is_junior">Is Junior</label>
+            </div>
+
+            <div class="form-group">
+                <label for="date_of_birth" id="date_of_birth_label" style="display: none;">Date of Birth:</label>
+                <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" style="display: none;">
+            </div>
+
+            <div class="form-group">
+                <label for="caregiver" id="caregiver_label" style="display: none;">Caregiver:</label>
+                <select class="form-control" name="caregiver" id="caregiver" style="display: none;">
+                    {% for caregiver_option in caregiver_options %}
+                    <option value="{{ caregiver_option[0] }}">{{ caregiver_option[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Driver</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const isJuniorCheckbox = document.querySelector("#is_junior");
+        const dateOfBirthLabel = document.querySelector("#date_of_birth_label");
+        const dateOfBirthInput = document.querySelector("#date_of_birth");
+        const caregiverLabel = document.querySelector("#caregiver_label");
+        const caregiverSelect = document.querySelector("#caregiver");
+
+        isJuniorCheckbox.addEventListener("change", function () {
+            if (isJuniorCheckbox.checked) {
+                dateOfBirthLabel.style.display = "block";
+                dateOfBirthInput.style.display = "block";
+                caregiverLabel.style.display = "block";
+                caregiverSelect.style.display = "block";
+            } else {
+                dateOfBirthLabel.style.display = "none";
+                dateOfBirthInput.style.display = "none";
+                caregiverLabel.style.display = "none";
+                caregiverSelect.style.display = "none";
+            }
+        });
+    });
+</script>
+
+{% endblock %}

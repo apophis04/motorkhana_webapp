@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Driver List</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Surname</th>
+            <th>First Name</th>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Car</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for driver in driver_list %}
+        <tr>
+            <td {% if driver[7]==1 %}class="bg-warning" {% endif %}>
+                <a href="{{ url_for('driver_details_by_id', driver_id=driver[0]) }}">{{ driver[2] }}</a>
+            </td>
+            <td {% if driver[7]==1 %}class="bg-warning" {% endif %}>
+                <a href="{{ url_for('driver_details_by_id', driver_id=driver[0]) }}">{{ driver[1] }}</a>
+            </td>
+            <td {% if driver[7]==1 %}class="bg-warning" {% endif %}>
+                {{ driver[3] }}
+            </td>
+            <td {% if driver[7]==1 %}class="bg-warning" {% endif %}>
+                {{ driver[4] }}
+            </td>
+            <td {% if driver[7]==1 %}class="bg-warning" {% endif %}>
+                {{ driver[6] }}
+            </td>
+            <td>{{ get_total_runs }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+    <!-- Access Plotly content delivery network (CDN) charting library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Top 5 Drivers</h1>
+    <div id="myHBarPlot" style="width:100%; max-width:800px;"></div>
+
+    <script>
+        // Get driver names and overall results from your Flask variables
+        const driverNames = {{ driver_names | tojson | safe }};
+        const overallResults = {{ overall_results | tojson | safe }};
+
+        // Create an array for the data
+        const data = [{
+            x: overallResults,
+            y: driverNames,
+            type: "bar",
+            orientation: "h",
+            marker: { color: ["blue", "green", "red", "purple", "orange"] }
+        }];
+
+        // Define graph layout
+        const layout = {
+            title: "Top 5 Drivers Overall",
+            xaxis: { title: "Total Time (seconds)" },
+            yaxis: { title: "Driver Name" },
+            autosize: true
+        };
+
+        // Display the horizontal bar graph using Plotly
+        Plotly.newPlot("myHBarPlot", data, layout);
+    </script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!-- courselist.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>List of Courses</h1>
+    <div class="row">
+        {% for course in course_list %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/' + course[2]) }}" alt="{{ course[1] }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course[1] }}</h5>
+                        <p class="card-text">Course ID: {{ course[0] }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

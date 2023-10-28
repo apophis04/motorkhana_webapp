@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    <div class="container mt-5">
+        <h2>Run Details</h2>
+        <form method="post" action="/driverdetails">
+            <div class="form-group">
+                <label for "driver_id">Select Driver:</label>
+                <select class="form-control" id="driver_id" name="driver_id">
+                    <option value="">-- Select Driver --</option>
+                    {% for driver in drivers %}
+                    <option value="{{ driver.driver_id }}">{{ driver.first_name }} {{ driver.surname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Select</button>
+        </form>
+
+        {% if driver_data %}
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Driver ID</th>
+                    <th>Driver Name</th>
+                    <th>Car Model</th>
+                    <th>Drive Class</th>
+                    <th>Run Number</th>
+                    <th>Seconds</th>
+                    <th>Cones</th>
+                    <th>Course Name</th>
+                    <th>Total Runs</th> <!-- Added this column for total runs -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Inside the table that displays runs -->
+                {% for data in driver_data %}
+                <tr>
+                    <td>{{ data.driver_id }}</td>
+                    <td>{{ data.first_name }} {{ data.surname }}</td>
+                    <td>{{ data.model }}</td>
+                    <td>{{ data.drive_class }}</td>
+                    <td>{{ data.run_num }}</td>
+                    <td>{{ data.seconds }}</td>
+                    <td>{{ data.cones }}</td>
+                    <td>{{ data.name }}</td>
+                    <td>{{ get_total_runs(data.driver_id) }}</td> <!-- Display total runs here -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Top 5 Drivers{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Winner: {{ winner }}</h3>
+</div>
+
+<div class="container">
+    <h1 class="mt-4">Motorkhana Results</h1>
+    <!-- Display the main results table -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Driver Name</th>
+                <th>Car Model</th>
+                <th>Age</th>
+                <th>Course Results</th>
+                <th>Overall Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver_name, data in results %}
+            <tr>
+                <td>{{ driver_name }}</td>
+                <td>{{ data.car_model }}</td>
+                <td>{{ data.age }}</td>
+                <td>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Course Time (seconds)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course_name, course_seconds in data.course_times.items() %}
+                            <tr>
+                                <td>{{ course_name }}</td>
+                                <td>{{ course_seconds }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    {% if driver_name == winner %}
+                        <span class="badge bg-success">Cup</span>
+                    {% elif loop.index <= 4 %}
+                        <span class="badge bg-warning">Prize</span>
+                    {% else %}
+                        <span class="badge bg-info">Participant</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display a separate table for NQ drivers -->
+    <h1 class="mt-4">NQ Drivers</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Driver Name (NQ)</th>
+                <th>Car Model</th>
+                <th>Age</th>
+                <th>Course Results</th>
+                <th>Overall Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver_name, data in nq_drivers %}
+            <tr>
+                <td>{{ driver_name }}</td>
+                <td>{{ data.car_model }}</td>
+                <td>{{ data.age }}</td>
+                <td>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Course Time (seconds)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course_name, course_seconds in data.course_times.items() %}
+                            <tr>
+                                <td>{{ course_name }}</td>
+                                <td>{{ course_seconds }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <span class="badge bg-danger">NQ</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+{% endblock %}

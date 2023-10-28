@@ -1,0 +1,53 @@
+{% extends 'admin.html' %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Driver Search Results</h1>
+        
+        <h2>Driver Name: {{ driver_name }}</h2>
+
+        {% if driver_details %}
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Driver ID</th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Date of Birth</th>
+                        <th>Age</th>
+                        <th>Caregiver</th>
+                        <th>Car</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for driver in driver_details %}
+                        <tr>
+                            <td>{{ driver[0] }}</td>
+                            <td>{{ driver[1] }}</td>
+                            <td>{{ driver[2] }}</td>
+                            <td>{{ driver[3] }}</td>
+                            <td>{{ driver[4] }}</td>
+                            <td>{{ driver[5] }}</td>
+                            <td>{{ driver[6] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No driver details found.</p>
+        {% endif %}
+        
+        <br>
+        <a href="/searchdrivers" class="btn btn-primary">Back to Search</a>
+    </div>
+    <!-- Add Bootstrap JS and jQuery scripts here if needed -->
+</body>
+{% endblock %}
