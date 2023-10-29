@@ -164,9 +164,8 @@
    - The graph visualizes the performance of drivers based on the number of runs they have completed.
 
 ## Design Decisions
-- Separate routes and templates for different functionalities to ensure easier handling and management of data and user interactions.
-- Dynamic form elements and conditional display of fields based on user input to enhance user experience.
-- Security measures in place to prevent unauthorized access and maintain data integrity and privacy.
+- Initially, I attempted to create a state-of-the-art design where multiple functionalities were integrated into a single page/code/route. However, I encountered difficulties, such as database update issues and handling errors.
+- To address these challenges, I opted to create different routes and separate HTML templates for each specific case. For example, I initially tried to combine the "overall_result" and "top5graph" functionalities on a single page. Due to the complexity, I decided to separate them, allowing for easier handling and management of the functionalities.
 
 ## Database Questions
 1. **SQL Statement to Create the "car" Table:**
